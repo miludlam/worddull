@@ -6,7 +6,7 @@ body {
     padding: 0;
     background-color: #121213;
     color: #ffffff;
-    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 .content {
     max-width: 100vw;
