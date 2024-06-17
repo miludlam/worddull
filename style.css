@@ -1,13 +1,11 @@
-* {
-    box-sizing: border-box;
-}
-
- :root {
+:root {
     --board-height: 420px;
     --board-width: 350px;
     --grid-gap: 5px;
- }
-
+}
+* {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     padding: 0;
@@ -24,7 +22,6 @@ body {
     font-size: 36px;
     text-align: center;
     margin: 10px auto;
-    padding-bottom: 15px;
     width: 100%;
 }
 .nav {
@@ -35,6 +32,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px 0;
 }
 .spiral {
     font-size: 30px;
@@ -48,7 +46,6 @@ body {
     grid-template-rows: repeat(6, 1fr);
     grid-gap: var(--grid-gap);
     margin: 0 auto;
-    padding-top: 20px;
 }
 .game-row {
     display: grid;
