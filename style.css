@@ -47,7 +47,9 @@ body {
     font-size: 2rem;
     line-height: 1;
     font-weight: bold;
-    padding-bottom: 100%;
+    text-align: center;
+    height: 66px;
+    width: 66px;
 }
 .tile-absent {
     background-color: #3a3a3c;
