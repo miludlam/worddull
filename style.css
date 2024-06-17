@@ -24,8 +24,12 @@ body {
     font-size: 36px;
     text-align: center;
     margin: 10px auto;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     width: 100%;
+}
+.nav {
+    border-bottom: 1px solid #f8f8f8;
+    padding-bottom: 5px;
 }
 .info-bar {
     display: flex;
@@ -33,7 +37,7 @@ body {
     justify-content: center;
 }
 .spiral {
-    font-size: 40px;
+    font-size: 30px;
     animation: spin 1.5s linear infinite;
 }
 /* Game board */
@@ -45,7 +49,6 @@ body {
     grid-gap: var(--grid-gap);
     margin: 0 auto;
     padding-top: 20px;
-    border-top: 1px solid #f8f8f8;
 }
 .game-row {
     display: grid;
