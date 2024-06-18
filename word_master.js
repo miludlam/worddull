@@ -19,17 +19,26 @@ function submitGuess() {
 }
 
 function updateTile(key) {
+    // Handle invalid index
+    if (currentIdx[1] > 4 || currentIdx[1] < 0) {
+        return;
+    }
+
     let pos = 'row_' + currentIdx[0] + '_' + currentIdx[1];
     console.log("Updating..." + pos);
     
     let tile = document.getElementById(pos)
 
     if (key === 'Backspace') {
-        tile.innerHTML = '';
-        currentIdx[1]--;
+        if (currentIdx[1] >= 0) {
+            currentIdx[1]--;
+            tile.innerHTML = '';
+        }
     } else {
-        tile.innerHTML = key;
-        currentIdx[1]++;
+        if (currentIdx[1] <= 4) {
+            tile.innerHTML = key;
+            currentIdx[1]++;
+        }
     }
 }
 
@@ -40,25 +49,13 @@ async function init() {
 
         switch (key) {
             case 'Enter':
-                if (currentIdx[1] !== 4) {
-                    event.preventDefault();
-                } else {
-                    submitGuess();
-                }
+                submitGuess();
                 break;
             case 'Backspace':
-                if (currentIdx[1] === 0) {
-                    event.preventDefault();
-                } else {
-                    updateTile(key);
-                }
+                updateTile(key);
                 break;
             default:
-                if (!isLetter(key) || currentIdx[1] > 4) {
-                    event.preventDefault();
-                } else {
-                    updateTile(key.toUpperCase());
-                }
+                updateTile(key.toUpperCase());
                 break;
         }
     });
