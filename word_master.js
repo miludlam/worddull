@@ -1,25 +1,42 @@
-const letters = document.querySelectorAll('.tile');
+const tiles = document.querySelectorAll('.tile');
 const loading = document.querySelector('.info-bar');
 const firstRow = 0;
 const lastRow = 5;
 const firstCol = 0;
 const lastCol = 4;
-const wordle = '';
+const wordle = 'HELLO';
 
 // Indices translate to [row, column]
 let currentIdx = [firstRow, firstCol];
+let wordBuffer = '';
 
 function isLetter(letter) {
     return /^[a-zA-Z]$/.test(letter);
 }
 
-function submitGuess() {
-    console.log("Submitting...");
-    
+function submitGuess() {    
     // 1. handle invalid word
+    if (wordBuffer.length !== 5) {
+        // invalid animation
+        return;
+    }
     // 2. check against word of the day and...
-    // 3. win condition
-    // 4. non-win condition 
+    if (wordBuffer === wordle) {
+        // 3. win condition
+        console.log("You win! " + wordBuffer);
+    } else {
+        // 4. non-win condition
+        console.log("Guess incorrect: " + wordBuffer);
+        if (currentIdx[0] === 5) {
+            // game over
+            wordBuffer = '';
+            alert("You lose!");
+        } else {
+            wordBuffer = '';
+            currentIdx[0]++;
+            currentIdx[1] = 0;
+        }
+    }
 }
 
 function clearTile(key) {
@@ -37,6 +54,7 @@ function clearTile(key) {
         tile = getTile();
         tile.innerHTML = '';
     }
+    wordBuffer = wordBuffer.substring(0, currentIdx[1]);
 }
 
 function letterTile(key) {
@@ -45,13 +63,12 @@ function letterTile(key) {
     if (currentIdx[1] === lastCol && tile.innerHTML.length === 1) {
         return;
     } else {
-        console.log(tile);
         tile.innerHTML = key;
+        wordBuffer += key;
         if (currentIdx[1] !== lastCol) {
             currentIdx[1]++;
         }
     }
-    
 }
 
 // A simple getter to return the ID of the current tile
