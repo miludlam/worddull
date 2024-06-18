@@ -27,7 +27,7 @@ function updateTile(key) {
     let pos = 'row_' + currentIdx[0] + '_' + currentIdx[1];
     console.log("Updating..." + pos);
     
-    let tile = document.getElementById(pos)
+    let tile = document.getElementById(pos);
 
     if (key === 'Backspace') {
         if (currentIdx[1] >= 0) {
