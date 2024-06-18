@@ -50,11 +50,11 @@ async function init() {
                 if (currentIdx[1] === 0) {
                     event.preventDefault();
                 } else {
-                    updateTile(key.toUpperCase);
+                    updateTile(key);
                 }
                 break;
             default:
-                if (!isLetter(key) || currentIdx[1] === 4) {
+                if (!isLetter(key) || currentIdx[1] > 4) {
                     event.preventDefault();
                 } else {
                     updateTile(key.toUpperCase());
