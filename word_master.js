@@ -30,7 +30,7 @@ function clearTile(key) {
 
     let tile = getTile();
 
-    if (currentIdx[1] === lastCol && tile.getInnerHTML().length === 1) {
+    if (currentIdx[1] === lastCol && tile.innerHTML.length === 1) {
         tile.innerHTML = '';
     } else {
         currentIdx[1]--;
