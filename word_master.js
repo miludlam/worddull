@@ -9,6 +9,7 @@ const wordle = 'HELLO';
 // Indices translate to [row, column]
 let currentIdx = [firstRow, firstCol];
 let wordBuffer = '';
+let gameOver = false;
 
 function isLetter(letter) {
     return /^[a-zA-Z]$/.test(letter);
@@ -16,7 +17,7 @@ function isLetter(letter) {
 
 function submitGuess() {    
     // 1. handle invalid word
-    if (wordBuffer.length !== 5) {
+    if (wordBuffer.length !== wordle.length) {
         // invalid animation
         return;
     }
@@ -24,13 +25,17 @@ function submitGuess() {
     if (wordBuffer === wordle) {
         // 3. win condition
         console.log("You win! " + wordBuffer);
+        alert("You win!");
+        gameOver = true;
+        wordBuffer = '';
     } else {
         // 4. non-win condition
         console.log("Guess incorrect: " + wordBuffer);
-        if (currentIdx[0] === 5) {
+        if (currentIdx[0] === lastRow) {
             // game over
-            wordBuffer = '';
             alert("You lose!");
+            wordBuffer = '';
+            gameOver = true;
         } else {
             wordBuffer = '';
             currentIdx[0]++;
@@ -83,16 +88,18 @@ function getTile() {
 
 async function init() {
     document.addEventListener('keydown', function handleKeyPress (event) {
-        const key = event.key;
+        if (!gameOver) {
+            const key = event.key;
 
-        if (key === 'Enter') {
-            submitGuess();
-        } else if (key === 'Backspace') {
-            clearTile(key);
-        } else if (isLetter(key)) {
-            letterTile(key.toUpperCase());
-        } else {
-            event.preventDefault();
+            if (key === 'Enter') {
+                submitGuess();
+            } else if (key === 'Backspace') {
+                clearTile(key);
+            } else if (isLetter(key)) {
+                letterTile(key.toUpperCase());
+            } else {
+                event.preventDefault();
+            }
         }
     });
 }
