@@ -17,7 +17,9 @@ let gameOver = false;
 
 async function wordOfTheDay() {
     // connect to API and parse response
-    const response = await fetch(dailyWordURL);
+    const response = await fetch(dailyWordURL, {
+        cache: "no-cache"
+    });
     const result = await response.json();
     // now that we have gained the word, hide the spinning eggplant
     loading.classList.add("hidden");
@@ -153,7 +155,6 @@ async function init() {
     
     document.addEventListener('click', function handleKeyPress (event) {
         if (!gameOver) {
-            console.log(event);
             const bClick = event.target.dataset.key;
 
             if (bClick === 'Enter') {
