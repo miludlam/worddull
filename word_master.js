@@ -74,7 +74,7 @@ function submitGuess() {
             // 5. non-win condition
             if (currentIdx[0] === lastRow) {
                 // game over
-                alert("You lose!");
+                alert("You lose! Word: " + wordle);
                 wordBuffer = '';
                 gameOver = true;
             } else {
@@ -133,23 +133,6 @@ async function init() {
         wordle = word.toUpperCase();    
     });
 
-    document.addEventListener('click', function handleKeyPress (event) {
-        if (!gameOver) {
-            const key = event.target.dataset.key;
-            console.log(key);
-
-            if (key === 'Enter') {
-                submitGuess();
-            } else if (key === 'Backspace') {
-                clearTile(key);
-            } else if (isLetter(key)) {
-                letterTile(key.toUpperCase());
-            } else {
-                event.preventDefault();
-            }
-        }
-    });
-
     document.addEventListener('keydown', function handleKeyPress (event) {
         if (!gameOver) {
             const key = event.key;
@@ -165,6 +148,24 @@ async function init() {
             }
         }
     });
+    
+    document.addEventListener('click', function handleKeyPress (event) {
+        if (!gameOver) {
+            console.log(event);
+            const bClick = event.target.dataset.key;
+
+            if (bClick === 'Enter') {
+                submitGuess();
+            } else if (bClick === 'Backspace') {
+                clearTile(bClick);
+            } else if (isLetter(bClick)) {
+                letterTile(bClick.toUpperCase());
+            } else {
+                event.preventDefault();
+            }
+        }
+    });
+
 }
 
 init();
