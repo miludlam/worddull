@@ -101,6 +101,7 @@ function clearTile(key) {
         tile = getTile();
         tile.innerHTML = '';
     }
+    tile.classList.remove('tile-filled');
     wordBuffer = wordBuffer.substring(0, currentIdx[1]);
 }
 
@@ -111,6 +112,7 @@ function letterTile(key) {
         return;
     } else {
         tile.innerHTML = key;
+        tile.classList.add('tile-filled');
         wordBuffer += key;
         if (currentIdx[1] !== lastCol) {
             currentIdx[1]++;

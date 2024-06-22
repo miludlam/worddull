@@ -102,6 +102,9 @@ div {
     height: calc((var(--board-height) - (5 * var(--grid-gap))) / 6);
     width: calc((var(--board-width) - (4 * var(--grid-gap))) / 5);
 }
+.tile-filled {
+    border: 2px solid #404142;
+}
 .tile-absent {
     background-color: #3a3a3c;
 }
