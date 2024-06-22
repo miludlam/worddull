@@ -60,7 +60,6 @@ function submitGuess() {
     }
     // 2. handle invalid word
     validateWord(wordBuffer).then((isValid) => {
-        console.log(isValid);
         if (isValid === false) {
             alert("Invalid word!");
             return;
@@ -68,13 +67,11 @@ function submitGuess() {
         // 3. check against word of the day and...
         if (wordBuffer === wordle) {
             // 4. win condition
-            console.log("You win! " + wordBuffer);
             alert("You win!");
             gameOver = true;
             wordBuffer = '';
         } else {
             // 5. non-win condition
-            console.log("Guess incorrect: " + wordBuffer);
             if (currentIdx[0] === lastRow) {
                 // game over
                 alert("You lose!");
