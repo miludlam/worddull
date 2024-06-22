@@ -133,6 +133,23 @@ async function init() {
         wordle = word.toUpperCase();    
     });
 
+    document.addEventListener('click', function handleKeyPress (event) {
+        if (!gameOver) {
+            const key = event.target.dataset.key;
+            console.log(key);
+
+            if (key === 'Enter') {
+                submitGuess();
+            } else if (key === 'Backspace') {
+                clearTile(key);
+            } else if (isLetter(key)) {
+                letterTile(key.toUpperCase());
+            } else {
+                event.preventDefault();
+            }
+        }
+    });
+
     document.addEventListener('keydown', function handleKeyPress (event) {
         if (!gameOver) {
             const key = event.key;
