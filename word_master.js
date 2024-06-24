@@ -66,13 +66,17 @@ function submitGuess() {
             alert("Invalid word!");
             return;
         }
+
         // 3. check against word of the day and...
         if (wordBuffer === wordle) {
             // 4. win condition
-            alert("You win!");
-            gameOver = true;
+            paintTiles(true);
+            
             wordBuffer = '';
+            gameOver = true;
         } else {
+            paintTiles(false);
+
             // 5. non-win condition
             if (currentIdx[0] === lastRow) {
                 // game over
@@ -122,6 +126,29 @@ function letterTile(key) {
     }
 }
 
+function paintTiles(winner = false) {
+    // get current row
+    let tileRow = getRowOfTiles();
+
+    if (winner) {
+        tileRow.forEach(tile => {
+            tile.classList.add('tile-correct');
+        });
+    } else {
+        for (let i = firstCol; i <= lastCol; i++) {
+            let tile = tileRow[i];
+
+            if (tile.innerHTML == wordle[i]) {
+                tile.classList.add('tile-correct');
+            } else if (tile.innerHTML != wordle[i] && wordle.includes(tile.innerHTML)) {
+                tile.classList.add('tile-present');
+            } else {
+                tile.classList.add('tile-absent');
+            }
+        }
+    }
+}
+
 // A simple getter to return the ID of the current tile
 function getCurrentTileID() {
     return 'row_' + currentIdx[0] + '_' + currentIdx[1];
@@ -130,6 +157,15 @@ function getCurrentTileID() {
 // Returns the current tile in the gameboard
 function getTile() {
     return document.getElementById(getCurrentTileID());
+}
+
+function getRowOfTiles() {
+    let tileRow = [];
+    for (let i = firstCol; i <= lastCol; i++) {
+        let tileID = 'row_' + currentIdx[0] + '_' + i;
+        tileRow.push(document.getElementById(tileID));
+    }
+    return tileRow;
 }
 
 async function init() {
