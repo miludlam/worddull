@@ -1,6 +1,7 @@
 const dailyWordURL = "https://words.dev-apis.com/word-of-the-day";
 const wordValidatorURL = "https://words.dev-apis.com/validate-word";
 let wordle = '';
+let wordMap = {};
 let isValid;
 
 const tiles = document.querySelectorAll('.tile');
@@ -135,18 +136,31 @@ function paintTiles(winner = false) {
             tile.classList.add('tile-correct');
         });
     } else {
+        wordMap = mapIt(wordle.split(""));
+
+        // Handle correct guesses first to make sure map is updated
+        for (let i = firstCol; i <= lastCol; i++) {
+            let tile = tileRow[i];
+            if (tile.innerHTML == wordle[i]) {
+                tile.classList.add('tile-correct');
+                wordMap[wordle[i]]--;
+            }
+        }
+
         for (let i = firstCol; i <= lastCol; i++) {
             let tile = tileRow[i];
 
             if (tile.innerHTML == wordle[i]) {
-                tile.classList.add('tile-correct');
-            } else if (tile.innerHTML != wordle[i] && wordle.includes(tile.innerHTML)) {
+                // do nothing as this case is handled above
+            } else if (wordle.includes(tile.innerHTML) && wordMap[tile.innerHTML] > 0) {
                 tile.classList.add('tile-present');
+                wordMap[tile.innerHTML]--;
             } else {
                 tile.classList.add('tile-absent');
             }
         }
     }
+    console.log(wordMap);
 }
 
 // A simple getter to return the ID of the current tile
@@ -168,9 +182,22 @@ function getRowOfTiles() {
     return tileRow;
 }
 
+function mapIt(array) {
+    const obj = {};
+    for (let i = 0; i < array.length; i++) {
+        const letter = array[i];
+        if (obj[letter]) {
+            obj[letter++];
+        } else {
+            obj[letter] = 1;
+        }
+    }
+    return obj;
+}
+
 async function init() {
     wordOfTheDay().then(function (word) {
-        wordle = word.toUpperCase();    
+        wordle = word.toUpperCase();
     });
 
     document.addEventListener('keydown', function handleKeyPress (event) {
