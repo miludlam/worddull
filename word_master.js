@@ -1,7 +1,6 @@
 const dailyWordURL = "https://words.dev-apis.com/word-of-the-day";
 const wordValidatorURL = "https://words.dev-apis.com/validate-word";
 let wordle = '';
-let wordMap = {};
 let isValid;
 
 const tiles = document.querySelectorAll('.tile');
@@ -130,14 +129,13 @@ function letterTile(key) {
 function paintTiles(winner = false) {
     // get current row
     let tileRow = getRowOfTiles();
+    const wordMap = mapIt(wordle.split(""));
 
     if (winner) {
         tileRow.forEach(tile => {
             tile.classList.add('tile-correct');
         });
     } else {
-        wordMap = mapIt(wordle.split(""));
-
         // Handle correct guesses first to make sure map is updated
         for (let i = firstCol; i <= lastCol; i++) {
             let tile = tileRow[i];
@@ -160,7 +158,6 @@ function paintTiles(winner = false) {
             }
         }
     }
-    console.log(wordMap);
 }
 
 // A simple getter to return the ID of the current tile
