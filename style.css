@@ -85,7 +85,7 @@ div {
     grid-gap: var(--grid-gap);
 }
 .guess-invalid {
-    animation: flash 1s;
+    animation: shake 1.5s, flash 1.5s;
 }
 /* End game board */
 /* Tile styling */
@@ -163,6 +163,20 @@ div {
     }
     100% {
         border-color: #2d2d2f;
+    }
+}
+@keyframes shake {
+    10%, 90% {
+        transform:translateX(-1px)
+    }
+    20%, 80% {
+        transform:translateX(2px)
+    }
+    30%, 50%, 70% {
+        transform:translateX(-4px)
+    }
+    40%, 60% {
+        transform:translateX(4px)
     }
 }
 /* End animations */

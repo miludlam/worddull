@@ -57,13 +57,13 @@ function submitGuess() {
     // 1. handle invalid word length
     if (wordBuffer.length !== wordle.length) {
         // invalid animation
-        alert("Word too short!");
+        animateInvalid();
         return;
     }
     // 2. handle invalid word
     validateWord(wordBuffer).then((isValid) => {
         if (isValid === false) {
-            alert("Invalid word!");
+            animateInvalid();
             return;
         }
 
@@ -90,6 +90,18 @@ function submitGuess() {
             }
         }
     });
+}
+
+function animateInvalid() {
+    let tileRow = getRowOfTiles();
+    tileRow.forEach(tile => {
+        tile.classList.add('guess-invalid');
+    });
+    setTimeout(function () {
+        tileRow.forEach(tile => {
+            tile.classList.remove('guess-invalid');
+        })
+    }, 1000);
 }
 
 function clearTile(key) {
@@ -130,6 +142,7 @@ function paintTiles(winner = false) {
     // get current row
     let tileRow = getRowOfTiles();
     const wordMap = mapIt(wordle.split(""));
+    let delay = 100;
 
     if (winner) {
         tileRow.forEach(tile => {
@@ -140,8 +153,10 @@ function paintTiles(winner = false) {
         for (let i = firstCol; i <= lastCol; i++) {
             let tile = tileRow[i];
             if (tile.innerHTML == wordle[i]) {
+                tile.style.animationDelay = delay;
                 tile.classList.add('tile-correct');
                 wordMap[wordle[i]]--;
+                delay += 100;
             }
         }
 
